@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1/ESP8266_Config_0.1.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wdb" id="1">
+         <top_modules>
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="6521fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="8" />
+   <wave_markers>
+   </wave_markers>
+   <wvobject db_ref_id="1" fp_name="check_word[0]" type="array">
+      <obj_property name="ElementShortName">check_word[0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">check_word[0][7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="data_stream_in_stb" type="logic">
+      <obj_property name="ElementShortName">data_stream_in_stb</obj_property>
+      <obj_property name="ObjectShortName">data_stream_in_stb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="data_stream_in_stb_1" type="logic">
+      <obj_property name="ElementShortName">data_stream_in_stb_1</obj_property>
+      <obj_property name="ObjectShortName">data_stream_in_stb_1</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="data_stream_out_stb" type="logic">
+      <obj_property name="ElementShortName">data_stream_out_stb</obj_property>
+      <obj_property name="ObjectShortName">data_stream_out_stb</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="data_stream_out_stb_1" type="logic">
+      <obj_property name="ElementShortName">data_stream_out_stb_1</obj_property>
+      <obj_property name="ObjectShortName">data_stream_out_stb_1</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="index" type="array">
+      <obj_property name="ElementShortName">index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">index[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="model_sel" type="array">
+      <obj_property name="ElementShortName">model_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">model_sel[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" fp_name="send_byte" type="array">
+      <obj_property name="ElementShortName">send_byte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">send_byte[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+</wave_config>

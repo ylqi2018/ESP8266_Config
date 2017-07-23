@@ -1,0 +1,136 @@
+#-----------------------------------------------------------
+# Vivado v2015.4 (64-bit)
+# SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
+# IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
+# Start of session at: Fri Jul 21 11:05:11 2017
+# Process ID: 3896
+# Current directory: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent2384 D:\Vivado_Program_Files\20170711_ESP8266\ESP8266_Config_0.1\ESP8266_Config_0.1.xpr
+# Log file: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1/vivado.log
+# Journal file: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1/ESP8266_Config_0.1.xpr
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+close_project
+open_project D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.xpr
+open_hw
+connect_hw_server -url localhost:3121
+current_hw_target [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+set_property PARAM.FREQUENCY 1000000 [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+open_hw_target
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+save_wave_config {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.2/ESP8266_Config_0.2.hw/hw_1/wave/hw_ila_data_1/hw_ila_data_1.wcfg}
+open_project D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.xpr
+current_project ESP8266_Config_0.2
+close_project
+open_hw
+connect_hw_server -url localhost:3121
+current_hw_target [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+set_property PARAM.FREQUENCY 1000000 [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+open_hw_target
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+set_property TRIGGER_COMPARE_VALUE eq4'hX [get_hw_probes model_sel -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+wait_on_hw_ila -timeout 0 [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.4/ESP8266_Config_0.4.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+open_project D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.3/ESP8266_Config_0.3.xpr
+current_project ESP8266_Config_0.4
+close_project
+open_hw
+connect_hw_server -url localhost:3121
+current_hw_target [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+set_property PARAM.FREQUENCY 1000000 [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+open_hw_target
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.3/ESP8266_Config_0.3.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.3/ESP8266_Config_0.3.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+run_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}] -trigger_now
+wait_on_hw_ila [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]
+display_hw_ila_data [upload_hw_ila_data [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.3/ESP8266_Config_0.3.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.3/ESP8266_Config_0.3.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
