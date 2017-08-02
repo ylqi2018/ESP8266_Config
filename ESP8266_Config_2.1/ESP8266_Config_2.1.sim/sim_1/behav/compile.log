@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1/ESP8266_Config_2.1.srcs/sources_1/StateMachine/WiFi_Receiver_mac.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity WiFi_Receiver_mac
+INFO: [VRFC 10-163] Analyzing VHDL file "D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1/ESP8266_Config_2.1.srcs/sim_1/tb_WiFi_Receiver_mac.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity tb_WiFi_Receiver_mac

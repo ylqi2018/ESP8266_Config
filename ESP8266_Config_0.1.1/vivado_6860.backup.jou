@@ -1,0 +1,76 @@
+#-----------------------------------------------------------
+# Vivado v2015.4 (64-bit)
+# SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
+# IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
+# Start of session at: Sun Jul 23 16:20:15 2017
+# Process ID: 6860
+# Current directory: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent896 D:\Vivado_Program_Files\20170711_ESP8266\ESP8266_Config_0.1.1\ESP8266_Config_0.1.1.xpr
+# Log file: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/vivado.log
+# Journal file: D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.xpr
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+launch_simulation
+source tb_ESP8266_ClientConfig.tcl
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig}} 
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig/inst_uart}} 
+relaunch_sim
+run 10 us
+run 10 ms
+relaunch_sim
+relaunch_sim
+close_sim
+launch_simulation
+source tb_ESP8266_ClientConfig.tcl
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig}} 
+relaunch_sim
+run 10 ms
+relaunch_sim
+close_sim
+launch_simulation
+launch_simulation
+source tb_ESP8266_ClientConfig.tcl
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig}} 
+relaunch_sim
+run 10 ms
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig/inst_uart}} 
+relaunch_sim
+run 10 ms
+relaunch_sim
+close_sim
+launch_simulation
+source tb_ESP8266_ClientConfig.tcl
+add_wave {{/tb_ESP8266_ClientConfig/inst_ESP8266_ClientConfig/inst_uart}} 
+relaunch_sim
+run 10 ms
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+open_hw
+connect_hw_server -url localhost:3121
+current_hw_target [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+set_property PARAM.FREQUENCY 1000000 [get_hw_targets */xilinx_tcf/Digilent/210183A2801AA]
+open_hw_target
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+display_hw_ila_data [ get_hw_ila_data hw_ila_data_1 -of_objects [get_hw_ilas -of_objects [get_hw_devices xc7a35t_0] -filter {CELL_NAME=~"inst_ila_uart"}]]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream
+wait_on_run impl_1
+set_property PROBES.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/debug_nets.ltx} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_0.1.1/ESP8266_Config_0.1.1.runs/impl_1/ESP8266_ClientConfig.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+close_sim

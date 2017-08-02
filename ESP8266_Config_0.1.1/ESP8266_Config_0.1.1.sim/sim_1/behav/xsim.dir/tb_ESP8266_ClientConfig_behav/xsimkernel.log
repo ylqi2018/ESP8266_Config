@@ -1,0 +1,7 @@
+Running: xsim.dir/tb_ESP8266_ClientConfig_behav/xsimk.exe -simmode gui -wdb tb_ESP8266_ClientConfig_behav.wdb -simrunnum 0 -socket 49433
+Design successfully loaded
+Design Loading Memory Usage: 22860 KB (Peak: 22860 KB)
+Design Loading CPU Usage: 108 ms
+Simulation completed
+Simulation Memory Usage: 31092 KB (Peak: 31092 KB)
+Simulation CPU Usage: 1434 ms

@@ -1,0 +1,8 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  "../../../ESP8266_Config_0.1.1.srcs/sources_1/ip/ila_uart/sim/ila_uart.vhd"
+vhdl xil_defaultlib  "../../../ESP8266_Config_0.1.1.srcs/sources_1/uart.vhd"
+vhdl xil_defaultlib  "../../../ESP8266_Config_0.1.1.srcs/sources_1/ESP8266_ClientConfig.vhd"
+vhdl xil_defaultlib  "../../../ESP8266_Config_0.1.1.srcs/sim_1/tb_ESP8266_ClientConfig.vhd"
+
+# Do not sort compile order
+nosort

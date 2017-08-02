@@ -1,0 +1,439 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 07/27/2017 04:00:15 PM
+-- Design Name: 
+-- Module Name: WiFi_Setup_Client_St - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use IEEE.std_logic_unsigned.all;
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+entity WiFi_Setup_Client_St is
+	port (
+		clk					:	in	STD_LOGIC;
+		rst					:	in	STD_LOGIC;
+		enb					:	in	STD_LOGIC;
+		
+		data_stream_in_ack	:	in	STD_LOGIC;
+		cmd_over			:	in	STD_LOGIC;
+		byte_to_tx			:	in	STD_LOGIC_VECTOR(7 DOWNTO 0);	-- uint8, when cmd_start=1, get cmd for upper
+	-- ##### get received data from uart and used this to control state machine #####	
+		data_stream_rec_stb	:	in	STD_LOGIC;
+		data_stream_rec		:	in	STD_LOGIC_VECTOR(7 DOWNTO 0);
+	-- ##### send cmds to uart #####
+		model_cmd			:	in	STD_LOGIC_VECTOR(7 DOWNTO 0);	-- control which cmd to send
+		rec_cmd_en			:	in 	STD_LOGIC;	
+		data_stream_send_stb:	out	STD_LOGIC;
+		data_stream_send	:	out	STD_LOGIC_VECTOR(7 DOWNTO 0);
+			
+		cmd_start			:	out	STD_LOGIC;
+		model_sel			:	out	STD_LOGIC_VECTOR(7 DOWNTO 0);
+		rec_data_en			:	out	STD_LOGIC
+		
+	);
+end WiFi_Setup_Client_St;
+
+architecture Behavioral of WiFi_Setup_Client_St is
+
+	TYPE T_state_type_is_wifi_setup_client_st IS (
+		IN_Initial, IN_Initial0, 
+		IN_Tran_A, IN_Tran_Enter, 
+		IN_Tran_Enter1, IN_Tran_Enter2, 
+		IN_Tran_Enter3, IN_Tran_Enter_1, 
+		IN_Tran_Enter_2, IN_Tran_Enter_3, 
+		IN_Tran_Enter_4, IN_Tran_T, 
+		IN_device_OK, IN_device_config_OK, 
+		IN_model_select, IN_model_select_RST, 
+		IN_rec_data, IN_rec_data1, 
+		IN_restart, IN_send_cmd1, 
+		IN_send_cmd2, IN_send_cmd3, 
+		IN_send_cmd4, IN_send_cmd_over, 
+		IN_send_cmd_over1, IN_send_data1, 
+		IN_send_data2, IN_send_data_over, 
+		IN_send_finish, IN_send_finish1, 
+		IN_send_finish2, IN_send_finish3, 
+		IN_wait_client_rep_C, IN_wait_client_rep_R, 
+		IN_wait_cmd, IN_wait_cmd1, 
+		IN_wait_cnt1, IN_wait_data, IN_wait_port
+	);
+
+signal	is_wifi_setup_client_st			:	T_state_type_is_wifi_setup_client_st;
+signal	is_wifi_setup_client_st_next	:	T_state_type_is_wifi_setup_client_st;
+
+
+signal	byte_to_tx_unsigned				:	unsigned(7 DOWNTO 0);	-- uint8
+signal	data_stream_rec_unsigned		:	unsigned(7 DOWNTO 0);
+signal	model_cmd_unsigned				:	unsigned(7 DOWNTO 0);
+
+signal	data_stream_send_stb_reg		:	STD_LOGIC;
+signal	data_stream_send_reg			:	unsigned(7 DOWNTO 0);
+signal	data_stream_send_stb_reg_next	:	STD_LOGIC;
+signal	data_stream_send_reg_next		:	unsigned(7 DOWNTO 0);
+	
+signal	cmd_start_reg					:	STD_LOGIC;
+signal	cmd_start_reg_next				:	STD_LOGIC;
+
+signal	model_sel_reg					:	unsigned(7 DOWNTO 0);
+signal	model_sel_reg_next				:	unsigned(7 DOWNTO 0);
+signal	rec_data_en_reg					:	STD_LOGIC;	
+signal	rec_data_en_reg_next			:	STD_LOGIC;		
+signal	cnt_wait						:	unsigned(31 DOWNTO 0);	-- uint32
+signal	cnt_halt						:	signed(31 DOWNTO 0);	-- int32
+signal	cnt_wait_next					:	unsigned(31 DOWNTO 0);
+signal	cnt_halt_next					:	signed(31 DOWNTO 0);	
+
+signal	model_sel_tmp					:	unsigned(7 DOWNTO 0);
+signal	data_stream_send_tmp			:	unsigned(7 DOWNTO 0);
+	
+
+-- ########################################################################## --
+begin
+
+byte_to_tx_unsigned 		<= unsigned(byte_to_tx);
+data_stream_rec_unsigned 	<= unsigned(data_stream_rec);	-- data_stream_out in Dr. Chen's file, received data from uart
+model_cmd_unsigned			<= unsigned(model_cmd);
+	
+		
+WiFi_Setup_Client_St_proc: process(rst, clk)
+	begin
+		if(rst = '1') then
+			is_wifi_setup_client_st	<= IN_Initial;
+			data_stream_send_stb_reg	<= '0';
+			data_stream_send_reg		<= to_unsigned(16#00#,8);
+			cmd_start_reg				<= '0';
+			model_sel_reg				<= to_unsigned(16#00#, 8);
+			cnt_wait <= to_unsigned(16#00000000#, 32);
+      		cnt_halt <= to_signed(16#00000000#, 32);
+			rec_data_en_reg				<= '0';
+		elsif(clk'event and clk = '1') then
+			if(enb = '1') then
+				is_wifi_setup_client_st <= is_wifi_setup_client_st_next;
+				cnt_wait				<= cnt_wait_next;
+				cnt_halt				<= cnt_halt_next;
+				data_stream_send_stb_reg<= data_stream_send_stb_reg_next;
+				data_stream_send_reg	<= data_stream_send_reg_next;
+				cmd_start_reg			<= cmd_start_reg_next;
+				model_sel_reg			<= model_sel_reg_next;
+				rec_data_en_reg			<= rec_data_en_reg_next;
+			end if;
+		end if;	
+	end process WiFi_Setup_Client_St_proc;
+	
+WiFi_Setup_Client_St_output: process(
+		is_wifi_setup_client_st, data_stream_in_ack, cmd_over,
+		byte_to_tx_unsigned, data_stream_rec_stb, data_stream_rec_unsigned,
+		cnt_wait, cnt_halt, model_cmd_unsigned, rec_cmd_en, data_stream_send_reg,
+		data_stream_send_reg, cmd_start_reg, model_sel_reg, rec_data_en_reg 
+		)
+		
+		VARIABLE cnt_wait_temp	:	unsigned(31 DOWNTO 0);
+		VARIABLE cnt_halt_temp	:	signed(31 DOWNTO 0);
+			
+		VARIABLE guard1			:	STD_LOGIC;
+		VARIABLE guard2			:	STD_LOGIC;
+		VARIABLE guard4			:	STD_LOGIC;
+		
+		VARIABLE add_temp_0		:	signed(8 DOWNTO 0);
+		VARIABLE add_temp_1		:	unsigned(8 DOWNTO 0);	
+		VARIABLE add_temp_2		:	unsigned(32 DOWNTO 0);
+		VARIABLE add_temp_3		:	signed(32 DOWNTO 0);	
+		VARIABLE add_temp_5		:	signed(32 DOWNTO 0);
+			
+		VARIABLE add_temp_7		:	signed(32 DOWNTO 0);	
+	
+	begin
+		cnt_wait_temp	:= cnt_wait;
+		cnt_halt_temp	:= cnt_halt;
+		data_stream_send_stb_reg_next 	<= data_stream_send_stb_reg;
+		data_stream_send_reg_next		<= data_stream_send_reg;
+		cmd_start_reg_next				<= cmd_start_reg;
+		model_sel_reg_next				<= model_sel_reg;
+		rec_data_en_reg_next			<= rec_data_en_reg;
+		is_wifi_setup_client_st_next	<= is_wifi_setup_client_st;
+		
+		case is_wifi_setup_client_st is 
+			when IN_Initial =>
+				is_wifi_setup_client_st_next	<= IN_Tran_A;
+				data_stream_send_stb_reg_next	<= '1';
+				data_stream_send_reg_next		<= to_unsigned(16#41#, 8);	-- A
+				cnt_wait_temp	:= to_unsigned(16#00000000#, 32);
+				cnt_halt_temp	:= to_signed(16#00000000#, 32);
+
+-- ##### trans AT + Enter #####			
+			when IN_Tran_A =>
+				if(data_stream_in_ack = '1') then	-- finish trans A
+					is_wifi_setup_client_st_next <= IN_Tran_T;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#54#, 8);	-- T
+				elsif(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next <= IN_Tran_A;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#41#, 8);	-- A
+					cnt_wait_temp	:= to_unsigned(16#00000000#, 32);
+					cnt_halt_temp	:= to_signed(16#00000000#, 32);
+				end if;
+					
+			when IN_Tran_T =>
+				if(data_stream_in_ack = '1') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#0D#, 8); -- /r carrage return
+				elsif(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next	<= IN_Tran_T;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#54#, 8);	-- T
+				end if;
+					
+			when IN_Tran_Enter =>
+				if(data_stream_in_ack = '1') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter_1;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#0A#, 8);	-- /n 
+				elsif(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#0D#, 8);	-- /r
+				end if;
+					
+			when IN_Tran_Enter_1 =>
+				if(data_stream_in_ack = '1') then
+					is_wifi_setup_client_st_next	<= IN_send_finish;
+					data_stream_send_stb_reg_next	<= '0';
+					data_stream_send_reg_next		<= to_unsigned(16#00#, 8);
+				elsif(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter_1;
+					data_stream_send_stb_reg_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#0A#, 8);
+				end if;
+			
+			when IN_send_finish =>
+				if(rec_cmd_en = '1') then
+					if(model_cmd_unsigned /= to_unsigned(16#1#, 8)) then	-- not receive "OK"
+						is_wifi_setup_client_st_next	<= IN_Tran_A;
+						data_stream_send_stb_reg_next <= '1';
+            			data_stream_send_reg_next <= to_unsigned(16#41#, 8);	--A		
+						cnt_wait_temp := to_unsigned(16#00000000#, 32);
+            			cnt_halt_temp := to_signed(16#00000000#, 32);
+            		elsif(model_cmd_unsigned = to_unsigned(16#1#, 8)) then
+            			is_wifi_setup_client_st_next	<= IN_wait_cnt1;
+            			add_temp_2 := resize(cnt_wait, 33) + to_unsigned(1, 33);
+            			if(add_temp_2(32) /= '0') then
+            				cnt_wait_temp := x"FFFFFFFF";
+            			else
+            				cnt_wait_temp := add_temp_2(31 DOWNTO 0);
+            			end if;
+            			cnt_halt_temp := to_signed(16#00000000#, 32);
+            		else
+            			guard1 := '1';
+            		end if;
+            	else
+            		guard1 := '1';
+            	end if;
+            		
+            when IN_wait_cnt1 => 
+            	if(cnt_wait >= to_unsigned(5000, 32)) then
+            		if(model_sel_reg /= to_unsigned(16#1#, 8)) then
+  						is_wifi_setup_client_st_next <= IN_device_OK;
+  						add_temp_1 := resize(model_sel_reg, 9) + to_unsigned(16#01#, 9);
+  						if(add_temp_1(8) /= '0') then
+  							model_sel_reg_next <= "11111111";
+  						else
+  							model_sel_reg_next <= add_temp_1(7 DOWNTO 0);
+  						end if;
+  						cnt_wait_temp := to_unsigned(16#00000000#, 32);
+  					elsif(model_sel_reg = to_unsigned(16#1#, 8)) then
+  						is_wifi_setup_client_st_next <= IN_device_config_OK;
+  						model_sel_reg_next <= to_unsigned(16#2#, 8);
+  					else
+  						guard4 := '1';
+  					end if;
+  				else
+  					guard4 := '1';
+  				end if;
+  					
+  			when IN_device_config_OK =>
+  				is_wifi_setup_client_st_next	<= IN_send_data1;
+  				cmd_start_reg_next	<= '1';
+  				data_stream_send_reg_next		<= byte_to_tx_unsigned;
+  				data_stream_send_stb_reg_next	<= '0';
+  				cnt_halt_temp	:= to_signed(16#00000000#, 32);
+  					
+  			when IN_send_data1 =>
+  				is_wifi_setup_client_st_next	<= IN_send_data2;
+  				cmd_start_reg_next	<= '1';
+  				data_stream_send_reg_next		<= byte_to_tx_unsigned;
+  				data_stream_send_stb_reg_next	<= '1';
+  				
+  			when IN_send_data2 =>
+  				if(data_stream_in_ack = '0') then
+  					is_wifi_setup_client_st_next	<= IN_send_data2;
+  					cmd_start_reg_next			<= '1';
+  					data_stream_send_stb_reg_next	<= '1';
+  					data_stream_send_reg_next	<= byte_to_tx_unsigned;
+  				elsif(data_stream_in_ack = '1') then
+  					is_wifi_setup_client_st_next	<= IN_wait_data;
+  					cmd_start_reg_next			<= '1';
+  					data_stream_send_stb_reg_next	<= '1';
+  					data_stream_send_reg_next	<= byte_to_tx_unsigned;
+  				end if;
+  					
+  			when IN_wait_data => 
+  				if(cmd_over = '1') then
+  					is_wifi_setup_client_st_next	<= IN_send_data_over;
+  					cmd_start_reg_next	<= '0';
+  					data_stream_send_reg_next	<= to_unsigned(16#00#, 8);
+  					data_stream_send_reg_stb_next	<= '0';
+  				elsif(cmd_over = '0') then
+  					is_wifi_setup_client_st_next	<= IN_send_data2;
+  					cmd_start_reg_next	<= '1';
+  					data_stream_send_reg_stb_next	<= '1';
+  					data_stream_send_reg_next		<= byte_to_tx_unsigned;
+  				end if;
+  					
+  			when IN_send_data_over =>
+  				is_wifi_setup_client_st_next		<= IN_Tran_Enter2;
+				data_stream_send_stb_reg_next 		<= '1';
+				data_stream_send_reg_next 			<= to_unsigned(16#0D#, 8); 		-- /r 
+					
+			when IN_Tran_Enter2 =>
+				if(data_stream_in_ack = '1') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter_3;
+					data_stream_send_reg_stb_next	<= '1';
+					data_stream_send_reg_next 		<= to_unsigned(16#0A#, 8); 		-- /n
+				elsif(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next		<= IN_Tran_Enter2;
+					data_stream_send_stb_reg_next 		<= '1';
+					data_stream_send_reg_next 			<= to_unsigned(16#0D#, 8); 		-- /r 	
+				end if;
+					
+			when IN_Tran_Enter_3 =>
+				if(data_stream_in_ack = '0') then
+					is_wifi_setup_client_st_next	<= IN_Tran_Enter_3;
+					data_stream_send_reg_stb_next	<= '1';
+					data_stream_send_reg_next		<= to_unsigned(16#0A#, 8);
+				elsif(data_stream_in_ack = '1') then
+					is_wifi_setup_client_st_next	<= IN_send_finish2;
+					data_stream_send_reg_stb_next	<= '0';
+					data_stream_send_reg_next		<= to_unsigned(16#00#, 8);
+					add_temp_3	:= resize(cnt_halt, 33) + to_signed(1,33);
+					if(add_temp_3(32) = '0' and add_temp_3(31) /= '0') then
+						cnt_halt_temp	:= x"7FFFFFFF";
+					elsif(add_temp_3(32) = '1' and add_temp_3(31) /= '1') then
+						cnt_halt_temp	:= x"80000000";
+					else
+						cnt_halt_temp	:= add_temp_3(31 DOWNTO 0);
+					end if;
+				end if;
+			
+			when IN_send_finish2 =>
+				if(data_stream_in_ack = '0') then
+					if(cnt_halt <= to_signed(120000000, 32)) then	-- 1.2s
+						is_wifi_setup_client_st_next	<= IN_send_finish2;
+						data_stream_send_reg_stb_next 	<= '0';
+						data_stream_send_reg_next		<= to_unsigned(16#00#, 8);
+						add_temp_5 := resize(cnt_halt, 33) + to_signed(1, 33);
+						if(add_temp_5(32) = '0' and add_temp_5(31) /= '0') then
+							cnt_halt_temp := x"7FFFFFFF";
+						elsif(add_temp_5(32) = '1' and add_temp_5(31) /= '1') then
+							cnt_halt_temp := x"80000000";
+						else
+							cnt_halt_temp := add_temp_5(31 DOWNTO 0);
+						end if;
+					elsif(cnt_halt > to_signed(120000000, 32)) then
+						is_wifi_setup_client_st_next <= IN_Initial;
+						cnt_halt_temp := to_signed(16#00000000#, 32);
+					else	
+						guard2 := '1';
+					end if;
+				else
+					guard2 := '1';
+				end if;
+			
+			when IN_model_select =>
+				is_wifi_setup_client_st_next	<= IN_send_cmd1;
+				cmd_start_reg_next				<= '1';
+				data_stream_send_reg_next		<= byte_to_tx_unsigned;
+				data_stream_send_reg_stb_next	<= '0';
+				cnt_halt_temp	:= to_signed(16#00000000#, 32);
+					
+					
+			when others =>
+				if(cnt_halt <= to_signed(60000, 32)) then
+					is_wifi_setup_client_st_next	<= IN_wait_port;
+					rec_data_en_reg_next		<= '0';
+					add_temp_0	:= resize(cnt_halt, 33) + to_signed(1, 33);
+					if((add_temp_0(32) = '0') and (add_temp_0(31) /= '0')) then 
+						cnt_halt_temp := X"7FFFFFFF";
+					elsif((add_temp_0(32) = '1') and (add_temp_0(31) /= '1')) then 
+						cnt_halt_temp := X"80000000";
+					else 
+						cnt_halt_temp := add_temp_0(31 DOWNTO 0);
+					end if;
+				elsif(cnt_halt > to_signed(60000, 32)) then 
+					is_wifi_setup_client_st_next <= IN_model_select;
+					cnt_halt_temp := to_signed(16#00000000#, 32);
+					model_sel_reg_next <= to_unsigned(16#6#, 4);
+				end if;
+		end case;	
+			
+		if(guard2 = '1') then
+			if(data_stream_rec_stb = '1') then
+				is_wifi_setup_client_st_next <= IN_wait_port;
+				data_stream_send_reg_stb_next <= '0';
+				data_stream_send_reg_next	<= to_unsigned(16#00#, 8);
+				add_temp_7 := resize(cnt_halt_temp, 33) + to_signed(1, 33);
+				if((add_temp_7(32) = '0') and (add_temp_7(31) /= '0')) then 
+					cnt_halt_temp := X"7FFFFFFF";
+				elsif((add_temp_7(32) = '1') and (add_temp_7(31) /= '1')) then 
+					cnt_halt_temp := X"80000000";
+				else 
+					cnt_halt_temp := add_temp_7(31 DOWNTO 0);
+				end if;
+			end if;
+		end if;
+			
+		if(guard1 = '1') then
+			if(rec_cmd_en = '0') then
+				is_wifi_setup_client_st_next <= IN_send_finish;
+				data_stream_send_stb_reg_next <= '0';
+        		data_stream_send_reg_next <= to_unsigned(16#00#, 8);
+        	end if;
+        end if;
+        	
+        cnt_wait_next	<= cnt_wait_temp;
+        cnt_halt_next	<= cnt_halt_temp;
+	
+	end process WiFi_Setup_Client_St_output;
+
+data_stream_send_stb	<= data_stream_send_stb_reg_next;
+data_stream_send_tmp	<= data_stream_send_reg_next;
+cmd_start	<= cmd_start_reg_next;
+model_sel_tmp	<= model_sel_reg_next;
+rec_data_en	<= rec_data_en_reg_next;
+
+data_stream_send <= STD_LOGIC_VECTOR(data_stream_send_tmp);
+model_sel 		<= STD_LOGIC_VECTOR(model_sel_tmp);
+
+
+
+end Behavioral;

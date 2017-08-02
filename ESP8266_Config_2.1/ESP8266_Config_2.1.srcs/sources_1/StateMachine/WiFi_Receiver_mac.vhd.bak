@@ -1,0 +1,368 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 07/27/2017 04:18:49 PM
+-- Design Name: 
+-- Module Name: WiFi_Receiver_mac - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+
+
+entity WiFi_Receiver_mac is
+	port (
+		clk					:	in	STD_LOGIC;							-- System clock
+		rst					:	in	STD_LOGIC;							-- System reset
+		enb					:	in	STD_LOGIC;							-- System enable
+		data_stream_in_stb	:	in	STD_LOGIC;							-- enable signal from UART
+		data_stream_in		:	in	STD_LOGIC_VECTOR(7 DOWNTO 0);		-- data signal from UART
+		model_cmd			:	out	STD_LOGIC_VECTOR(3 DOWNTO 0);		-- model selection cmd to next
+		rec_cmd_en			:	out	STD_LOGIC							-- enable signal
+	);
+end WiFi_Receiver_mac;
+
+architecture Behavioral of WiFi_Receiver_mac is
+
+	TYPE T_state_type_is_WiFi_Receiver_mac IS (
+		IN_detect_cmd, 
+		IN_device_ERROR, 
+		IN_device_FAIL, 
+		IN_device_OK, 
+		IN_initial, 
+		IN_received_A, 
+		IN_received_E, 
+		IN_received_F, 
+		IN_received_I, 
+		IN_received_K, 
+		IN_received_L, 
+		IN_received_O, 
+		IN_received_O1, 
+		IN_received_R, 
+		IN_received_R1, 
+		IN_received_R2, 
+		IN_time_out, 
+		IN_wait_cmd
+	);
+	
+	-- ##################################################### --
+	signal	data_stream_in_unsigned		:	unsigned(7 DOWNTO 0);				-- uint 8
+	signal	is_WiFi_Receiver_mac		:	T_state_type_is_WiFi_Receiver_mac;	-- enum type state_type_is_WiFi_Receiver_mac (18 enums)
+	signal	is_WiFi_Receiver_mac_next	:	T_state_type_is_WiFi_Receiver_mac;
+	signal	time_cnt					:	unsigned(31 DOWNTO 0);				-- uint32
+	signal	time_cnt_next				:	unsigned(31 DOWNTO 0);
+	
+	signal	model_cmd_reg				:	unsigned(3 DOWNTO 0);
+	signal	rec_cmd_en_reg				:	STD_LOGIC;
+	signal	model_cmd_reg_next			:	unsigned(3 DOWNTO 0);
+	signal	rec_cmd_en_reg_next			:	STD_LOGIC;	
+	
+	signal	model_cmd_tmp				:	unsigned(3 DOWNTO 0);		-- ufix4
+
+begin
+	
+-- data_stream_in			: STD_LOGIC_VECTOR(7 DOWNTO 0);	
+-- data_stream_in_unsigned	: unsigned(7 DOWNTO 0)
+	data_stream_in_unsigned	<= unsigned(data_stream_in);
+		
+WiFi_Receiver_mac_proc: process(rst, clk)
+	begin
+		if(rst = '1') then
+			model_cmd_reg			<= to_unsigned(16#0#, 4);
+			rec_cmd_en_reg			<= '0';
+			is_WiFi_Receiver_mac	<= IN_initial;
+			time_cnt				<= to_unsigned(16#00000000#, 32);
+		elsif(clk'event and clk = '1') then
+			if(enb = '1') then
+				is_WiFi_Receiver_mac	<= is_WiFi_Receiver_mac_next;
+				time_cnt				<= time_cnt_next;
+				model_cmd_reg			<= model_cmd_reg_next;
+				rec_cmd_en_reg			<= rec_cmd_en_reg_next;
+			end if;
+		end if;
+	end process WiFi_Receiver_mac_proc;
+	
+WiFi_Receiver_mac_output: process(is_WiFi_Receiver_mac, data_stream_in_unsigned, data_stream_in_stb, time_cnt, model_cmd_reg, rec_cmd_en_reg)
+		variable	time_cnt_temp	:	unsigned(31 DOWNTO 0);
+		variable	add_temp		:	unsigned(32 DOWNTO 0);
+		
+		variable	guard1			:	STD_LOGIC;	
+		variable	guard2			:	STD_LOGIC;	
+		variable	guard3			:	STD_LOGIC;	
+		variable	guard4			:	STD_LOGIC;	
+		variable	guard5			:	STD_LOGIC;	
+		variable	guard6			:	STD_LOGIC;	
+			
+	begin
+		time_cnt_temp				:= time_cnt;	-- time_cnt is unsigned(31 DOWNTO 0)
+		model_cmd_reg_next			<= model_cmd_reg;
+		rec_cmd_en_reg_next			<= rec_cmd_en_reg;
+		is_WiFi_Receiver_mac_next	<= is_WiFi_Receiver_mac;
+
+		guard1 := '0';
+		guard2 := '0';
+		guard3 := '0';
+		guard4 := '0';
+		guard5 := '0';
+		guard6 := '0';
+		
+		case is_WiFi_Receiver_mac is 
+			when IN_detect_cmd =>
+				is_WiFi_Receiver_mac_next	<= IN_wait_cmd;
+				model_cmd_reg_next			<= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+				rec_cmd_en_reg_next			<= '0';
+			
+			when IN_device_ERROR =>
+				is_WiFi_Receiver_mac_next	<= IN_detect_cmd;
+				
+			when IN_device_FAIL =>
+				is_WiFi_Receiver_mac_next	<= IN_detect_cmd;
+			
+			when IN_device_OK =>
+				is_WiFi_Receiver_mac_next	<= IN_detect_cmd;
+				
+			when IN_initial =>
+				is_WiFi_Receiver_mac_next	<= IN_wait_cmd;
+				model_cmd_reg_next			<= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+				rec_cmd_en_reg_next			<= '0';
+
+
+			when IN_received_A =>	-- detect FAIL
+				if(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#49#, 8)) then	-- I
+						is_WiFi_Receiver_mac_next <= IN_received_I;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#49#, 8)) then -- do rec 'I'
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					else
+						guard2 := '1';
+					end if;
+				else
+					guard2 := '1';
+				end if;
+
+			when IN_received_E =>
+				if(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#52#, 8)) then	-- R
+						is_WiFi_Receiver_mac_next <= IN_received_R;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#52#, 8)) then -- do rec 'R'
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- STD_LOGIC_VECTOR(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					else
+						guard3 := '1';
+					end if;
+				else
+					guard3 := '1';
+				end if;	
+					
+			when IN_received_F =>
+				if(data_stream_in_stb = '1') then		
+					if(data_stream_in_unsigned = to_unsigned(16#41#,8)) then	-- A 
+						is_WiFi_Receiver_mac_next	<= IN_received_A;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#41#,8)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					else
+						guard4 := '1';
+					end if;
+				else 
+					guard4 := '1';
+				end if;
+					
+			when IN_received_I =>
+				if(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#4C#, 8)) then
+						is_WiFi_Receiver_mac_next	<= IN_received_L;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#4C#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					else
+						guard5 := '1';
+					end if;
+				else 
+					guard5 := '1';
+				end if;
+					
+			when IN_received_K =>
+				is_WiFi_Receiver_mac_next	<= IN_device_OK;
+				model_cmd_reg_next	<= to_unsigned(16#1#, 4);
+				rec_cmd_en_reg_next <= '1';
+
+			when IN_received_L =>
+				is_WiFi_Receiver_mac_next	<= IN_device_FAIL;
+				model_cmd_reg_next	<= to_unsigned(16#3#, 4);
+				rec_cmd_en_reg_next <= '1';
+
+			when IN_received_O =>
+				if(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#4B#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_received_K;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#4B#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					else
+						guard6 := '1';
+					end if;
+				else
+					guard6 := '1';
+				end if;
+					
+			when IN_received_O1 =>
+				if(data_stream_in_stb = '0') then
+					is_WiFi_Receiver_mac_next <= IN_received_O1;
+				elsif(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#52#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_received_R2;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#52#, 8)) or (data_stream_in_unsigned /= to_unsigned(16#4F#, 8)) then -- /='O' or /='R'
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					end if;
+				end if;
+
+			when IN_received_R =>
+				if(data_stream_in_stb = '0') then
+					is_WiFi_Receiver_mac_next <= IN_received_R;
+				elsif(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#52#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_received_R1;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#52#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					end if;
+				end if;
+
+			when IN_received_R1 =>
+				if(data_stream_in_stb = '0') then
+					is_WiFi_Receiver_mac_next <= IN_received_R1;
+				elsif(data_stream_in_stb = '1') then
+					if(data_stream_in_unsigned = to_unsigned(16#4F#, 8)) then	-- O
+						is_WiFi_Receiver_mac_next <= IN_received_O1;
+					elsif(data_stream_in_unsigned /= to_unsigned(16#4F#, 8)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);		-- model_cmd_reg : unsigned(3 DOWNTO 0);
+						rec_cmd_en_reg_next <= '0';
+					end if;
+				end if;
+			
+			when IN_received_R2 =>
+				is_WiFi_Receiver_mac_next <= IN_device_ERROR;
+				model_cmd_reg_next <= to_unsigned(16#2#, 4);
+				rec_cmd_en_reg_next <= '1';
+
+-- ##### when time out #####
+			when IN_time_out =>
+				is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+				model_cmd_reg_next	<= to_unsigned(16#0#, 4);
+				rec_cmd_en_reg_next <= '0';
+				
+			when others =>
+				if(data_stream_in_stb = '0') then
+					add_temp := resize(time_cnt, 33) + to_unsigned(1, 33);	--signal time_cnt :	unsigned(31 DOWNTO 0);	
+					
+					if(add_temp(32) /= '0') then
+						time_cnt_temp := x"FFFFFFFF";	-- time_cnt_temp	:	unsigned(31 DOWNTO 0);
+					else
+						time_cnt_temp := add_temp(31 DOWNTO 0);	-- add_temp		:	unsigned(32 DOWNTO 0);
+					end if;
+						
+					if(time_cnt_temp <= to_unsigned(60000000, 32)) then
+						is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+						model_cmd_reg_next <= to_unsigned(16#0#, 4);
+						rec_cmd_en_reg_next <= '0';
+					elsif(time_cnt_temp > to_unsigned(60000000, 32)) then
+						is_WiFi_Receiver_mac_next <= IN_time_out;
+						time_cnt_temp := to_unsigned(16#00000000#, 32);
+						model_cmd_reg_next <= to_unsigned(16#2#, 4);
+						rec_cmd_en_reg_next <= '1';
+					else
+						guard1 := '1';
+					end if;
+				else
+					guard1 := '1';
+				end if;
+			
+		end case;
+
+-- ##### when in IN_received_O, if data_stream_in_stb='0', keep in this state #####				
+		if(guard6 = '1') then
+			if(data_stream_in_stb = '0') then
+				is_WiFi_Receiver_mac_next <= IN_received_O;	
+			end if;
+		end if;
+			
+-- ##### when in IN_received_I, if data_stream_in_stb='0', keep in this state #####		
+		if(guard5 = '1') then
+			if(data_stream_in_stb = '0') then
+				is_WiFi_Receiver_mac_next <= IN_received_I;
+			end if;
+		end if;
+
+-- ##### when in IN_received_F, if data_stream_in_stb='0', keep in this state #####	
+		if(guard4 = '1') then
+			if(data_stream_in_stb = '0') then
+				is_WiFi_Receiver_mac_next <= IN_received_F;
+			end if;
+		end if;	
+
+-- ##### when in IN_received_E, if data_stream_in_stb='0', keep in this state #####	
+		if(guard3 = '1') then
+			if(data_stream_in_stb = '0') then
+				is_WiFi_Receiver_mac_next <= IN_received_E;
+			end if;
+		end if;							 
+
+-- ##### when in IN_received_A, if data_stream_in_stb='0', keep in this state #####	
+		if(guard2 = '1') then
+			if(data_stream_in_stb = '0') then
+				is_WiFi_Receiver_mac_next <= IN_received_A;
+			end if;
+		end if;	
+			
+-- ##### when in IN_received_
+		if(guard1 = '1') then
+			if(data_stream_in_stb = '1') then
+				if(data_stream_in_unsigned = to_unsigned(16#4F#, 8)) then	-- O
+					is_WiFi_Receiver_mac_next <= IN_received_O;
+				elsif(data_stream_in_unsigned = to_unsigned(16#46#,8)) then -- F
+					is_WiFi_Receiver_mac_next <= IN_received_F;
+				elsif(data_stream_in_unsigned = to_unsigned(16#45#,8)) then	-- E
+					is_WiFi_Receiver_mac_next <= IN_received_E;
+				elsif((data_stream_in_unsigned /= to_unsigned(16#4F#,8)) and (data_stream_in_unsigned /= to_unsigned(16#46#,8)) and (data_stream_in_unsigned /= to_unsigned(16#45#,8))) then
+					is_WiFi_Receiver_mac_next <= IN_wait_cmd;
+					model_cmd_reg_next <= to_unsigned(16#0#, 4);
+					rec_cmd_en_reg_next <= '0';
+				end if;						
+			end if;
+		end if;
+		time_cnt_next <= time_cnt_temp;
+	end process;
+	
+	model_cmd_tmp <= model_cmd_reg_next;
+	rec_cmd_en	<= rec_cmd_en_reg_next;
+	
+	model_cmd <= STD_LOGIC_VECTOR(model_cmd_tmp);
+	
+
+end Behavioral;

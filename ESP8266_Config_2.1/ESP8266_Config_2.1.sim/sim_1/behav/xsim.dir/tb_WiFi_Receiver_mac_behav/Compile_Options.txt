@@ -1,0 +1,1 @@
+-wto "5e805ce88e264a0b9d064afe4c103146" --debug "typical" --relax --mt "2" -L "xil_defaultlib" -L "secureip" --snapshot "tb_WiFi_Receiver_mac_behav" "xil_defaultlib.tb_WiFi_Receiver_mac" -log "elaborate.log" 

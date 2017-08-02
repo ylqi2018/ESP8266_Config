@@ -1,0 +1,4 @@
+-makelib ies/xil_defaultlib \
+  "../../../../ESP8266_Config_2.1.srcs/sources_1/ip/ila_uart/sim/ila_uart.vhd" \
+-endlib
+
