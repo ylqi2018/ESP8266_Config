@@ -1,0 +1,461 @@
+
+*** Running vivado
+    with args -log TOP.vds -m64 -mode batch -messageDb vivado.pb -notrace -source TOP.tcl
+
+
+****** Vivado v2015.4 (64-bit)
+  **** SW Build 1412921 on Wed Nov 18 09:43:45 MST 2015
+  **** IP Build 1412160 on Tue Nov 17 13:47:24 MST 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source TOP.tcl -notrace
+Command: synth_design -top TOP -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 294.992 ; gain = 121.938
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-2488] overwriting existing primary unit receive_ok_pkg [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/receive_OK/receive_OK_pkg.vhd:15]
+INFO: [Synth 8-638] synthesizing module 'TOP' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:40]
+	Parameter baud bound to: 115200 - type: integer 
+	Parameter clock_frequency bound to: 100000000 - type: integer 
+INFO: [Synth 8-3491] module 'uart' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/uart.vhd:32' bound to instance 'inst_uart' of component 'uart' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:121]
+INFO: [Synth 8-638] synthesizing module 'uart' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/uart.vhd:50]
+	Parameter baud bound to: 115200 - type: integer 
+	Parameter clock_frequency bound to: 100000000 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'uart' (1#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/uart.vhd:50]
+INFO: [Synth 8-3491] module 'Config_Client' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client.vhd:44' bound to instance 'inst_Config_Client' of component 'Config_Client' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:138]
+INFO: [Synth 8-638] synthesizing module 'Config_Client' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client.vhd:60]
+INFO: [Synth 8-3491] module 'Config_Client_mac' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client_mac.vhd:23' bound to instance 'u_Config_Client_mac' of component 'Config_Client_mac' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client.vhd:86]
+INFO: [Synth 8-638] synthesizing module 'Config_Client_mac' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client_mac.vhd:38]
+INFO: [Synth 8-256] done synthesizing module 'Config_Client_mac' (2#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client_mac.vhd:38]
+INFO: [Synth 8-256] done synthesizing module 'Config_Client' (3#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Config_St/hdlsrc/Config_Client/Config_Client.vhd:60]
+INFO: [Synth 8-3491] module 'receive_OK' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/receive_OK.vhd:42' bound to instance 'inst_receive_OK' of component 'receive_OK' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:153]
+INFO: [Synth 8-638] synthesizing module 'receive_OK' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/receive_OK.vhd:55]
+INFO: [Synth 8-3491] module 'WiFi_Receiver_mac' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/WiFi_Receiver_mac.vhd:23' bound to instance 'u_WiFi_Receiver_mac' of component 'WiFi_Receiver_mac' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/receive_OK.vhd:77]
+INFO: [Synth 8-638] synthesizing module 'WiFi_Receiver_mac' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/WiFi_Receiver_mac.vhd:35]
+INFO: [Synth 8-256] done synthesizing module 'WiFi_Receiver_mac' (4#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/WiFi_Receiver_mac.vhd:35]
+INFO: [Synth 8-256] done synthesizing module 'receive_OK' (5#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/Receive_St/hdlsrc/receive_OK/receive_OK.vhd:55]
+INFO: [Synth 8-3491] module 'ila_top' declared at 'D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.runs/synth_1/.Xil/Vivado-8520-/realtime/ila_top_stub.vhdl:5' bound to instance 'inst_ila_top' of component 'ila_top' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:165]
+INFO: [Synth 8-638] synthesizing module 'ila_top' [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.runs/synth_1/.Xil/Vivado-8520-/realtime/ila_top_stub.vhdl:17]
+INFO: [Synth 8-256] done synthesizing module 'TOP' (6#1) [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/sources_1/TOP.vhd:40]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:08 . Memory (MB): peak = 329.992 ; gain = 156.938
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 329.992 ; gain = 156.938
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.runs/synth_1/.Xil/Vivado-8520-/dcp/ila_top_in_context.xdc] for cell 'inst_ila_top'
+Finished Parsing XDC File [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.runs/synth_1/.Xil/Vivado-8520-/dcp/ila_top_in_context.xdc] for cell 'inst_ila_top'
+Parsing XDC File [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/constr_1/Basys3_Master.xdc]
+Finished Parsing XDC File [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/constr_1/Basys3_Master.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [D:/Vivado_Program_Files/20170711_ESP8266/ESP8266_Config_2.1.2/ESP8266_Config_2.1.2.srcs/constr_1/Basys3_Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/TOP_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/TOP_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 616.809 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "rx_baud_tick" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "uart_rx_bit" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "uart_rx_bit" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "uart_rx_bit_tick" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "uart_rx_bit_spacing" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "tx_baud_tick" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5544] ROM "guard1" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "is_Config_Client_mac_next" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     33 Bit       Adders := 2     
+	   2 Input     11 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 2     
+	               11 Bit    Registers := 1     
+	                8 Bit    Registers := 3     
+	                7 Bit    Registers := 1     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 10    
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 7     
+	   5 Input     32 Bit        Muxes := 1     
+	   2 Input     11 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 2     
+	   2 Input      8 Bit        Muxes := 46    
+	   2 Input      7 Bit        Muxes := 64    
+	   2 Input      6 Bit        Muxes := 16    
+	   2 Input      5 Bit        Muxes := 51    
+	   3 Input      5 Bit        Muxes := 3     
+	  18 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 205   
+	   4 Input      4 Bit        Muxes := 2     
+	  18 Input      4 Bit        Muxes := 6     
+	  14 Input      4 Bit        Muxes := 6     
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 6     
+	  24 Input      3 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 1     
+	  24 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 83    
+	   4 Input      1 Bit        Muxes := 9     
+	   3 Input      1 Bit        Muxes := 2     
+	  24 Input      1 Bit        Muxes := 10    
+	   5 Input      1 Bit        Muxes := 1     
+	  18 Input      1 Bit        Muxes := 16    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module uart 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     11 Bit       Adders := 1     
+	   2 Input      7 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 1     
+	   2 Input      3 Bit       Adders := 2     
+	   2 Input      2 Bit       Adders := 1     
++---Registers : 
+	               11 Bit    Registers := 1     
+	                8 Bit    Registers := 2     
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 7     
++---Muxes : 
+	   2 Input     11 Bit        Muxes := 1     
+	   4 Input      8 Bit        Muxes := 2     
+	   2 Input      4 Bit        Muxes := 1     
+	   4 Input      3 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 2     
+	   4 Input      2 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 8     
+	   4 Input      1 Bit        Muxes := 8     
+Module Config_Client_mac 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     33 Bit       Adders := 1     
+	   2 Input      5 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 5     
+	   5 Input     32 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 46    
+	   2 Input      7 Bit        Muxes := 64    
+	   2 Input      6 Bit        Muxes := 16    
+	   2 Input      5 Bit        Muxes := 30    
+	   2 Input      4 Bit        Muxes := 80    
+	   4 Input      4 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 4     
+	  24 Input      3 Bit        Muxes := 2     
+	  24 Input      2 Bit        Muxes := 2     
+	   3 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 18    
+	  24 Input      1 Bit        Muxes := 10    
+	   5 Input      1 Bit        Muxes := 1     
+Module WiFi_Receiver_mac 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     33 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   3 Input      5 Bit        Muxes := 3     
+	   2 Input      5 Bit        Muxes := 21    
+	  18 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 124   
+	  18 Input      4 Bit        Muxes := 6     
+	  14 Input      4 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 57    
+	   3 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 1     
+	  18 Input      1 Bit        Muxes := 16    
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+Start Cross Boundary Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5546] ROM "tx_baud_tick" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "rx_baud_tick" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5546] ROM "is_WiFi_Receiver_mac_next" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------
+Finished Cross Boundary Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:18 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+Finished Parallel Reinference  : Time (s): cpu = 00:00:15 ; elapsed = 00:00:18 . Memory (MB): peak = 616.809 ; gain = 443.754
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-3332] Sequential element (\u_Config_Client_mac/data_stream_send_reg_reg[7] ) is unused and will be removed from module Config_Client.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/model_cmd_reg_reg[3] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/model_cmd_reg_reg[2] ) is unused and will be removed from module receive_OK.
+INFO: [Synth 8-3886] merging instance 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[29] ' (FDCE) to 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[26] '
+INFO: [Synth 8-3886] merging instance 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[30] ' (FDCE) to 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[26] '
+INFO: [Synth 8-3886] merging instance 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[31] ' (FDCE) to 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[26] '
+INFO: [Synth 8-3886] merging instance 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[26] ' (FDCE) to 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[27] '
+INFO: [Synth 8-3886] merging instance 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[27] ' (FDCE) to 'inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[28] '
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (inst_receive_OK/\u_WiFi_Receiver_mac/time_cnt_reg[28] )
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[31] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[30] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[29] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[28] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[27] ) is unused and will be removed from module receive_OK.
+WARNING: [Synth 8-3332] Sequential element (\u_WiFi_Receiver_mac/time_cnt_reg[26] ) is unused and will be removed from module receive_OK.
+---------------------------------------------------------------------------------
+Finished Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+Finished Parallel Area Optimization  : Time (s): cpu = 00:00:17 ; elapsed = 00:00:20 . Memory (MB): peak = 616.809 ; gain = 443.754
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 616.809 ; gain = 443.754
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+Finished Parallel Technology Mapping Optimization  : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 620.332 ; gain = 447.277
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |ila_top       |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+-------------+------+
+|      |Cell         |Count |
++------+-------------+------+
+|1     |ila_top_bbox |     1|
+|2     |BUFG         |     1|
+|3     |CARRY4       |    16|
+|4     |LUT1         |    58|
+|5     |LUT2         |    39|
+|6     |LUT3         |    40|
+|7     |LUT4         |    41|
+|8     |LUT5         |    44|
+|9     |LUT6         |   160|
+|10    |FDCE         |    83|
+|11    |FDPE         |     1|
+|12    |FDRE         |    54|
+|13    |FDSE         |     5|
+|14    |IBUF         |     3|
+|15    |OBUF         |     1|
++------+-------------+------+
+
+Report Instance Areas: 
++------+------------------------+------------------+------+
+|      |Instance                |Module            |Cells |
++------+------------------------+------------------+------+
+|1     |top                     |                  |   546|
+|2     |  inst_uart             |uart              |   125|
+|3     |  inst_Config_Client    |Config_Client     |   199|
+|4     |    u_Config_Client_mac |Config_Client_mac |   199|
+|5     |  inst_receive_OK       |receive_OK        |   217|
+|6     |    u_WiFi_Receiver_mac |WiFi_Receiver_mac |   217|
++------+------------------------+------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 9 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:23 . Memory (MB): peak = 620.332 ; gain = 53.863
+Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:30 . Memory (MB): peak = 620.332 ; gain = 447.277
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 19 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+62 Infos, 9 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 620.332 ; gain = 407.898
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 620.332 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Fri Aug 18 11:44:57 2017...
