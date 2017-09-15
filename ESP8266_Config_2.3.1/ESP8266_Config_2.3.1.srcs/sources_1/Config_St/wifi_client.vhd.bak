@@ -103,8 +103,6 @@ constant AT_multiple_connect : tstring(0 to N4-1) := "AT+CIPMUX=1";
 constant N5 : natural := 38;
 constant AT_connect: tstring(0 to N5-1) := "AT+CIPSTART=1,""TCP"",""192.168.43.70"",80";
 
-
-
 -- ##### Test Command #####	@20170907
 --constant N1 			: natural := 11;
 --constant AT_CWMODE 		: tstring(0 to N1-1) := "AT+CWMODE=3";
@@ -112,27 +110,12 @@ constant AT_connect: tstring(0 to N5-1) := "AT+CIPSTART=1,""TCP"",""192.168.43.7
 --constant AT_CWJAP_Joint : tstring(0 to N2-1) := "AT";
 --constant N3 			: natural := 6;
 --constant AT_STATIC_IP 	: tstring(0 to N3-1) := "AT+RST";
-
-
---constant N1 			: natural := 6;
---constant AT_CWMODE 		: tstring(0 to N1-1) := "AT+RST";
---constant N2 			: natural := 2;
---constant AT_CWJAP_Joint : tstring(0 to N2-1) := "AT";
---constant N3 			: natural := 11;
---constant AT_STATIC_IP 	: tstring(0 to N3-1) := "AT+CWMODE=3";
-
---constant N1 			: natural := 11;
---constant AT_CWMODE 		: tstring(0 to N1-1) := "AT+CWMODE=3";
---constant N2 			: natural := 11;
---constant AT_CWJAP_Joint : tstring(0 to N2-1) := "AT+CWMODE=3";
---constant N3 			: natural := 11;
---constant AT_STATIC_IP 	: tstring(0 to N3-1) := "AT+CWMODE=3";
 -- ##### End test part #####
 
 
 signal	cnt_cmd			: STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal	s_cmd_over		: STD_LOGIC;
-signal 	char_index		: natural range 0 to N3-1;
+signal 	char_index		: natural range 0 to N5-1;
 
 signal  length_sig      : std_logic_vector(5 downto 0);
 
@@ -156,50 +139,29 @@ send_cmd: process(rst, clk)
 			if(s_cmd_start = '1') then
 				case s_model_sel is
 -- ##### actural command #####
---					when "0001" =>
---						length_sig	<=	conv_std_logic_vector(N1, 6);
---						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_CWMODE(char_index)), 8));
---							
---					when "0010" =>
---						length_sig	<=	conv_std_logic_vector(N2, 6);
---						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_CWJAP_Joint(char_index)), 8));
---							
---					when "0011" =>
---						length_sig	<=	conv_std_logic_vector(N3, 6);
---						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_STATIC_IP(char_index)), 8));
---							
---					when "0100" =>
---						length_sig	<=	conv_std_logic_vector(N4, 6);
---						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
---
---					when "0101" =>
---						length_sig	<=	conv_std_logic_vector(N5, 6);
---						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_connect(char_index)), 8));
-
--- ##### test ######
 					when "0001" =>
-						length_sig	<=	conv_std_logic_vector(N4, 6);
-						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
+						length_sig	<=	conv_std_logic_vector(N1, 6);
+						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_CWMODE(char_index)), 8));
 							
 					when "0010" =>
-						length_sig	<=	conv_std_logic_vector(N4, 6);
-						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
+						length_sig	<=	conv_std_logic_vector(N2, 6);
+						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_CWJAP_Joint(char_index)), 8));
 							
 					when "0011" =>
-						length_sig	<=	conv_std_logic_vector(N4, 6);
-						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
+						length_sig	<=	conv_std_logic_vector(N3, 6);
+						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_STATIC_IP(char_index)), 8));
 							
 					when "0100" =>
 						length_sig	<=	conv_std_logic_vector(N4, 6);
 						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
 
 					when "0101" =>
-						length_sig	<=	conv_std_logic_vector(N4, 6);
-						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_multiple_connect(char_index)), 8));
-				
+						length_sig	<=	conv_std_logic_vector(N5, 6);
+						byte_to_tx	<=	std_logic_vector(to_unsigned(character'pos(AT_connect(char_index)), 8));
+					
 					when others =>
-						length_sig	<=	conv_std_logic_vector(N1, 6);
-						byte_to_tx	<=	(others => '0');
+                        length_sig	<=	conv_std_logic_vector(N5, 6);
+                        byte_to_tx  <=  std_logic_vector(to_unsigned(character'pos(AT_connect(char_index)), 8));
 				end case;
 				if(s_data_stream_in_ack = '1') then
 					if(cnt_cmd < length_sig-1) then
