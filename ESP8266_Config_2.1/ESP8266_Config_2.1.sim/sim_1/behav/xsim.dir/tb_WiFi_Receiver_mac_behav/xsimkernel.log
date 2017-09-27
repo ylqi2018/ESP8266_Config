@@ -1,4 +1,4 @@
-Running: xsim.dir/tb_WiFi_Receiver_mac_behav/xsimk.exe -simmode gui -wdb tb_WiFi_Receiver_mac_behav.wdb -simrunnum 0 -socket 60932
+Running: xsim.dir/tb_WiFi_Receiver_mac_behav/xsimk.exe -simmode gui -wdb tb_WiFi_Receiver_mac_behav.wdb -simrunnum 0 -socket 58711
 Design successfully loaded
-Design Loading Memory Usage: 22996 KB (Peak: 22996 KB)
-Design Loading CPU Usage: 108 ms
+Design Loading Memory Usage: 22912 KB (Peak: 22912 KB)
+Design Loading CPU Usage: 124 ms

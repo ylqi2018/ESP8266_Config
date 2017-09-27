@@ -160,21 +160,21 @@ stim_proc: process
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"76";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"4B";	-- K
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"0D";	-- #
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 
 
 -- ############## send FAIL ##################		
@@ -187,35 +187,35 @@ stim_proc: process
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"76";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"41";	-- A
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"49";	-- I
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"4C";	-- L
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"0D";	-- #
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 
 
 -- ############## send ERROR ##################		
@@ -228,42 +228,42 @@ stim_proc: process
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"76";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"52";	-- R
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"52";	-- R
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"4F";	-- O
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 		
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"52";	-- R
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;	
+		wait for 4 * clock_period;	
 				
 		data_stream_rec_stb	<= '1';
 		data_stream_rec		<= x"0D";	-- #
 		wait for clock_period;
 		data_stream_rec_stb	<= '0';
 		data_stream_rec		<= x"77";	
-		wait for 7 * clock_period;			
+		wait for 4 * clock_period;			
 
 		
 		wait;		
