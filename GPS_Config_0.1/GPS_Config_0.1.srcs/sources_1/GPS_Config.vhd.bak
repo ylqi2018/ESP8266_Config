@@ -34,6 +34,20 @@ port (
 	);
 end component; 
 
+component ila_GPS is
+PORT (
+    clk : IN STD_LOGIC;
+    probe0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe2 : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe4 : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+);
+END component;
+
+
 -- ##### type define #####
 type tstring is array(natural range<>) of character;
 	
@@ -46,9 +60,11 @@ CONSTANT N3 :	natural	:= 18;
 CONSTANT BAUDRATE		:	tstring(0 to N3-1) := "$PMTK251,115200*1F";
 
 -- ##### signals #####
-signal	s_data_stream_in	:	std_logic_vector(7 downto 0);
-signal	s_data_stream_in_stb:	std_logic;
-signal	s_data_stream_in_ack:	std_logic;
+signal	s_data_stream_in		:	std_logic_vector(7 downto 0);
+signal	s_data_stream_in_stb	:	std_logic;
+signal	s_data_stream_in_ack	:	std_logic;
+signal	s_data_stream_out		:	std_logic_vector(7 downto 0);
+signal	s_data_stream_out_stb	:	std_logic;
 
 signal	index		:	STD_LOGIC_VECTOR(7 DOWNTO 0);
 signal	model_sel	:	STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -63,7 +79,7 @@ begin
 inst_uart: uart
 generic map(
 	baud                => 115200,					--: positive;
-	clock_frequency     => 100000000,				--: positive
+	clock_frequency     => 100000000				--: positive
 	)
 port map(
 	clock               => clk,						--:   in  std_logic;
@@ -71,11 +87,23 @@ port map(
 	data_stream_in      => s_data_stream_in,		--:   in  std_logic_vector(7 downto 0);
 	data_stream_in_stb  => s_data_stream_in_stb,	--:   in  std_logic;
 	data_stream_in_ack  => s_data_stream_in_ack,	--:   out std_logic;
-	data_stream_out     => 					--:   out std_logic_vector(7 downto 0);
-	data_stream_out_stb => 					--:   out std_logic;
+	data_stream_out     => s_data_stream_out,		--:   out std_logic_vector(7 downto 0);
+	data_stream_out_stb => s_data_stream_out_stb,	--:   out std_logic;
 	tx                  => tx,						--:   out std_logic;
-	rx                  => 					--:   in  std_logic
+	rx                  => rx						--:   in  std_logic
 	);
+
+inst_ila_GPS: ila_GPS
+PORT map(
+    clk 		=> clk,						--IN STD_LOGIC;
+    probe0(0)	=> s_data_stream_in_ack,	--IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe1(0)	=> s_data_stream_in_stb,	--IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe2 		=> s_data_stream_in,		--IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    probe3 		=> 						--IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe4 		=> 						--IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    probe5 		=> 						--IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe6 		=> 						--IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+);
 
 -- ##### send cmd process #####
 send_proc: process(clk, rst)
@@ -139,5 +167,5 @@ send_proc: process(clk, rst)
 			end if;				
 		end if;	-- end clk
 	end process send_proc;
-
+  
 end Behavioral;
