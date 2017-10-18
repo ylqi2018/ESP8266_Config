@@ -2,6 +2,12 @@
 # The follow ignore will excluded everything under it
 #WiFi_Server_0.1/
 
+# 20171018
+GPS_Config_0.1/*
+!GPS_Config_0.1/GPS_Config_0.1.srcs/
+GPS_Config_0.1/GPS_Config_0.1.srcs/*
+!GPS_Config_0.1/GPS_Config_0.1.srcs/sources_1/
+
 # 20171006
 WiFi_Server_0.2/*
 !WiFi_Server_0.2/WiFi_Server_0.2.srcs/
